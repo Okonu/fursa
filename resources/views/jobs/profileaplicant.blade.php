@@ -115,7 +115,7 @@
                                         <!--</div>-->
                                      <div class="text-center">
                                         @if ($status === 'in review')
-                                            <form action="{{ route('adminapplication.status', ['jobApplicationId' => $applicationId]) }}" method="POST">
+                                             <form action="{{ route('JobApplicationupdate.status', ['jobApplicationId' => $applicationId]) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
                                                 <button type="submit" name="status" value="1" class="btn btn-success mr-3">Accept</button>

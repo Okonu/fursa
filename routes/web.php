@@ -53,22 +53,20 @@ Route::middleware(['auth', 'checkRegistrationStatus'])->group(function () {
         Route::get('/jobs/applications', [JobController::class, 'jobApplication'])->name('jobs.applications');
 
         Route::get('/seekers', [SeekerController::class, 'index'])->name('seekers.index');
-        // Route::get('/seekers/{seeker}', [SeekerController::class, 'show'])->name('seekers.show');
+        
         
 
       Route::get('/jobs/profileaplicant/{id}/{applicationId}', [SeekerController::class, 'seekerProfilePartner'])->name('jobs.profileaplicant');
 
-         Route::put('job-applications/{jobApplicationId}/status', [SeekerController::class, 'updateJobApplicationStatus'])->name('jobs.profileaplicants');
+     
          
-         Route::put('job-applications/{jobApplicationId}/status', [SeekerController::class, 'updateJobApplicationStatus'])->name('adminapplication.status');
-        
+         
         
  
     });
 });
 
- Route::put('job-applications/{jobApplicationId}/status', [SeekerController::class, 'updateJobApplicationStatus'])->name('adminapplication.status');
-
+ 
 // Routes accessible only to admins
 Route::middleware(['auth', 'checkAdminRole'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
@@ -91,7 +89,7 @@ Route::middleware(['auth', 'checkAdminRole'])->group(function () {
 
     Route::get('/jobs/seekerapply/{id}/{applicationId}', [SeekerController::class, 'seekerProfileAdmin'])->name('admin.jobs.seekerapply');
     Route::put('job-applications/{jobApplicationId}/status', [SeekerController::class, 'updateJobApplicationStatus'])->name('adminJobApplication.status');
-     Route::put('job-applications/{jobApplicationId}/status', [SeekerController::class, 'updateJobApplicationStatus'])->name('adminapplication.status');
+     
 
 
     Route::get('/admin/jobs/applications', [AdminJobController::class, 'jobApplication'])->name('admin.jobs.applications');
@@ -136,12 +134,13 @@ Route::middleware(['auth', 'checkAdminRole'])->group(function () {
     Route::get('/jobs', [SeekerController::class, 'getAllJobs'])->name('jobs');
     Route::post('/jobApplications', [SeekerController::class, 'applyForJob'])->name('applyForJob');
     Route::get('/jobApplications/{jobId}', [JobController::class, 'getJobApplications'])->name('jobApplications');
+    Route::put('job-applications/{jobApplicationId}/status', [SeekerController::class, 'updateJobApplicationStatuspartner'])->name('JobApplicationupdate.status');
     // Route for pending approval page
     Route::middleware(['auth'])->group(function () { Route::get('/auth/pending-approval', 
     function () { return view('auth.pending'); })->name('auth.pending');});
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     
-     Route::put('job-applications/{jobApplicationId}/status', [SeekerController::class, 'updateJobApplicationStatus'])->name('adminapplication.status');
+     
      
      Route::get('/resumes/{filename}', [ResumeController::class, 'show'])->name('resume.show');

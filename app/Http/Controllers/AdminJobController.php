@@ -155,23 +155,7 @@ class AdminJobController extends Controller
 
         return redirect()->route('admin.jobs.show')->with('success', 'Job created successfully. Status: '.$status);
     }
-// AUTHENTICATED TOGGLE
-    // public function toggleStatus(Request $request, $jobId)
-    // {
-    //     $job = Job::findOrFail($jobId);
 
-    //     // Only allow the user who created the job to toggle the status
-    //     if (!auth()->check() || $job->user_id !== auth()->user()->id) {
-    //         return response()->json(['message' => 'You are not authorized to toggle the status of this job.'], 403);
-    //     }
-
-    //     $job->status = !$job->status; // Toggle the status
-    //     $job->save();
-
-    //     $status = $job->status ? 'open' : 'closed';
-
-    //     return response()->json(['message' => 'Job status toggled successfully. New status: '.$status]);
-    // }
 
     public function toggleStatus(Request $request, $jobId)
     {
@@ -237,22 +221,55 @@ class AdminJobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Job $job)
-    {
-        $validatedData = $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'skills' => 'required',
-            'applicants' => 'required',
-            'vacancies' => 'required',
-            'location' => 'required',
-            'type' => 'required',
-        ]);
+    public function update(Request $request, $job)
+{
+    $validator = Validator::make($request->all(), [
+        'title' => 'required',
+        'description' => 'required',
+        'skill_id' => 'required|array',
+        'skill_id.*' => 'exists:skills,id',
+        'applicants' => 'required',
+        'vacancies' => 'required',
+        'location_id' => 'required',
+        'type' => 'required',
+    ]);
 
-        $job->update($validatedData);
-
-        return redirect()->route('admin.jobs.edit', $job->id)->with('success', 'Job updated successfully');
+    if ($validator->fails()) {
+        return response()->json(['message' => 'Validation Failed', 'errors' => $validator->errors()], 422);
     }
+
+    $description_html = $request->input('description');
+    $description_plain = strip_tags($description_html); // Remove HTML tags
+
+    // Set the plain text content in the hidden input field
+    $request->merge([
+        'description' => new HtmlString($description_plain),
+    ]);
+
+    $job = Job::findOrFail($job);
+
+    $jobData = $request->only([
+        'title',
+        'description',
+        'applicants',
+        'vacancies',
+        'location_id',
+        'type',
+    ]);
+
+    $job->update($jobData);
+
+    $skillIds = $request->input('skill_id');
+    $job->skills()->sync($skillIds);
+
+    $location = Location::find($job->location_id)->pluck('name', 'id');
+    $skills = Skill::whereIn('id', $skillIds)->pluck('skill', 'id');
+
+    $status = $job->status ? 'open' : 'closed';
+
+    return redirect()->back()->with('success', 'Job updated successfully. Status: '.$status);
+}
+    
 
     /**
      * Pause the specified resource.

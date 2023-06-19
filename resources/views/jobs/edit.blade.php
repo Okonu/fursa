@@ -6,7 +6,7 @@
 <div class="container" style="margin-top: 100px;">
     <div  class="text-center"><h1>Edit Job</h1></div>
 
-    <form action="{{ route('admin.jobs.update', $job->id) }}" method="POST">
+    <form action="{{ route('jobs.update', $job->id) }}" method="POST">
         @csrf
         @method('PUT')
 

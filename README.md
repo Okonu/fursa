@@ -104,6 +104,8 @@ Assuming you have already set up the Laravel environment (if not, please refer t
     - Finally, run 'php artisan serve' to start the application. The application will run on port 8000. Open your browser and enter 'http://127.0.0.1:8000/'
 
 #### Trial login details can be found in the 'DatabaseSeeder.php' file located in the '/database/seeders' directory.
-I hope this information is helpful to you in some way. If you would like to collaborate, have any questions, feedback, or you don't know how to exit Vim, please reach out to me at ianyakundi015@gmail.com.
+I hope this information is helpful to you in some way. 
+
+### If you would like to collaborate, have any questions or feedback, or 'don't know how to exit Vim', please reach out to me at ianyakundi015@gmail.com.
 
 ## See you on the other edge of the terminal!

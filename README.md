@@ -91,3 +91,19 @@ The following are the endpoints for the Mobile Application;
 
 ### 4. Get all Interests: GET '/api/interest'
 // you must pass authorization bearer token generated when login or registration of the user is succesful in the headers 
+
+## Setting up and running the application:
+Assuming you have already set up the Laravel environment (if not, please refer to the documentation at laravel.com for guidance), follow these steps:
+
+    - Clone this repository using Git.
+    - Create the .env file and configure the database settings.
+    - Run 'composer install' to download the required packages and libraries.
+    - Run 'php artisan migrate' to set up the database migrations.
+    - Run 'php artisan key:generate' to generate the application key.
+    - Run 'php artisan db:seed' to seed the database.
+    - Finally, run 'php artisan serve' to start the application. The application will run on port 8000. Open your browser and enter 'http://127.0.0.1:8000/'
+
+#### Trial login details can be found in the 'DatabaseSeeder.php' file located in the '/database/seeders' directory.
+I hope this information is helpful to you in some way. If you would like to collaborate, have any questions, feedback, or you don't know how to exit Vim, please reach out to me at ianyakundi015@gmail.com.
+
+## See you on the other edge of the terminal!

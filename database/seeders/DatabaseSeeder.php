@@ -10,10 +10,9 @@ class DatabaseSeeder extends Seeder
     {
         // Create the admin user
         User::create([
-            'name' => 'Ghost User',
-            'email' => 'this@mail.com',
-            'password' => Hash::make('pluswad'),
-            'role' => 'admin',
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
+            'password' => Hash::make('123456'),
             'level' => 'admin',
             'registration_status' => true,
         ]);

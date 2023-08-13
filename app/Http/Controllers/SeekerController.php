@@ -455,6 +455,8 @@ public function applyForJob(Request $request)
         \DB::table('seeker_skills')->where('seeker_id', $seeker->id)->delete();
     
         \DB::table('seeker_interests')->where('seeker_id', $seeker->id)->delete();
+
+        \DB::table('seeker_locations')->where('seeker_id', $seeker->id)->delete();
     
         $seeker->delete();
         

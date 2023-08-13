@@ -447,13 +447,14 @@ public function applyForJob(Request $request)
     {
         $seeker = Auth::user();
     
+        // Delete related records manually
         if ($seeker->seekerProfile) {
             $seeker->seekerProfile->delete();
         }
         
-        $seeker->skills()->detach();
-        
-        $seeker->interests()->detach();
+        \DB::table('seeker_skills')->where('seeker_id', $seeker->id)->delete();
+    
+        \DB::table('seeker_interests')->where('seeker_id', $seeker->id)->delete();
     
         $seeker->delete();
         
@@ -461,6 +462,7 @@ public function applyForJob(Request $request)
     
         return response()->json(['message' => 'Account deleted successfully']);
     }
+
 
 
 }

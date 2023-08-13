@@ -35,42 +35,32 @@ class SeekerController extends Controller
 
   public function seekerProfilePartner($id, $applicationId)
 {
-    // Retrieve the seeker data based on the ID
     $seeker = Seeker::find($id);
     $profile = SeekerProfile::where('seeker_id', $id)->first();
     $level = HighestLevel::where('id', $profile->highest_level_id)->first();
 
-    // Retrieve the skill names that belong to the seeker
     $skills = $profile->skills()->pluck('skill')->toArray();
 
-    // Retrieve the interests that belong to the seeker
     $interests = $seeker->interests()->pluck('interest')->toArray();
 
-    // Retrieve the job application based on the application ID
     $jobApplication = JobApplication::find($applicationId);
 
-    // Determine the status of the job application
     $status = $jobApplication->status;
 
     return view('jobs.profileaplicant', compact('seeker', 'profile', 'level', 'skills', 'interests', 'status', 'applicationId'));
 }
  public function seekerProfileAdmin($id, $applicationId)
 {
-    // Retrieve the seeker data based on the ID
     $seeker = Seeker::find($id);
     $profile = SeekerProfile::where('seeker_id', $id)->first();
     $level = HighestLevel::where('id', $profile->highest_level_id)->first();
 
-    // Retrieve the skill names that belong to the seeker
     $skills = $profile->skills()->pluck('skill')->toArray();
 
-    // Retrieve the interests that belong to the seeker
     $interests = $seeker->interests()->pluck('interest')->toArray();
 
-    // Retrieve the job application based on the application ID
     $jobApplication = JobApplication::find($applicationId);
 
-    // Determine the status of the job application
     $status = $jobApplication->status;
 
     return view('admin.jobs.seekerapply', compact('seeker', 'profile', 'level', 'skills', 'interests', 'status', 'applicationId'));

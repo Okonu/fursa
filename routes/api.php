@@ -46,6 +46,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/jobApplications', [SeekerController::class, 'applyForJob']);
     Route::get('/jobApplications', [SeekerController::class, 'getJobApplications']);
     Route::get('/jobs/applied/', [JobController::class, 'getAppliedJobsBySeeker']);
+    Route::delete('/seeker/delete-account', [SeekerController::class, 'deleteAccount']);
     
     //  Route::get('/seeker/profile', [SeekerController::class, 'getSeekerProfile']);
     // Route::post('/seeker/profile', [SeekerController::class, 'updateSeekerProfile']);

@@ -443,19 +443,22 @@ public function applyForJob(Request $request)
         return response()->json($responseData);
     }
 
-    public function deleteAccount(Request $request): JsonResponse
-    {
-        $seeker = Auth::user();
-        
-        $seeker->seekerProfile()->delete();
-        $seeker->jobApplications()->delete();
-        
-        $seeker->delete();
-        
-        Auth::guard('seeker')->logout();
-        
-        return response()->json(['message' => 'Account deleted successfully']);
+  public function deleteAccount(Request $request): JsonResponse
+{
+    $seeker = Auth::user();
+
+    if ($seeker->seekerProfile) {
+        $seeker->seekerProfile->delete();
     }
+
+    $seeker->jobApplications()->delete();
+
+    $seeker->delete();
+    Auth::guard('seeker')->logout();
+
+    return response()->json(['message' => 'Account deleted successfully']);
+}
+
 
 
 

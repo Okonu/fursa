@@ -451,7 +451,11 @@ public function applyForJob(Request $request)
         $seeker->seekerProfile->delete();
     }
 
-    $seeker->jobApplications()->delete();
+   if ($seeker->jobApplications) {
+        $seeker->jobApplications->each(function ($jobApplication) {
+            $jobApplication->delete();
+        });
+    }
 
     $seeker->delete();
     Auth::guard('seeker')->logout();

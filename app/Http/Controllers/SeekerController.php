@@ -33,8 +33,6 @@ class SeekerController extends Controller
         return response()->json(['message' => 'nuku successful']);
     }
 
-
-
   public function seekerProfilePartner($id, $applicationId)
 {
     // Retrieve the seeker data based on the ID
@@ -129,8 +127,7 @@ class SeekerController extends Controller
         $token = $seeker->createToken('auth-token')->plainTextToken;
 
         return response()->json(['message' => 'Login successful', 'seeker' => $seeker, 'token' => $token]);
-
-        // return response()->json(['message' => 'Login successful', 'seeker' => $seeker]);
+        
     }
 
     public function logout(Request $request)
@@ -240,46 +237,6 @@ public function setupProfile(Request $request)
     {
     }
 
-    // public function applyForJob(Request $request)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'job_id' => 'required|exists:jobs,id',
-    //         'cv_file' => 'required|max:2048',
-    //     ]);
-
-    //     if ($validator->fails()) {
-    //         return response()->json(['error' => $validator->errors()], 422);
-    //     }
-
-    //     $seekerId = $request->user()->id;
-
-    //     $jobId = $request->input('job_id');
-    //     $cvFile = $request->file('cv_file');
-
-    //     // if (!$cvFile->isValid()) {
-    //     //     return response()->json(['error' => 'Invalid CV file'], 400);
-    //     // }
-
-    //     $job = Job::where('id', $jobId)->first();
-
-    //     if (!$job) {
-    //         return response()->json(['error' => 'Invalid job'], 404);
-    //     }
-
-    //     // $cvPath = $cvFile->store('cv_files', 'public');
-    //     $jobApplication = new JobApplication();
-    //     $jobApplication->seeker_id = $seekerId;
-    //     $jobApplication->job_id = $jobId;
-    //     $jobApplication->cv_file = '';
-    //     $jobApplication->status = 'in review'; // Set the default status
-    //     $jobApplication->save();
-
-    //     // Notify the job creator about the new job application and status
-    //     // $job->user->notify(new JobStatusChanged($jobApplication));
-
-    //     return response()->json(['message' => 'Job application submitted successfully']);
-    // }
-
 public function applyForJob(Request $request)
 {
     $validator = Validator::make($request->all(), [
@@ -313,8 +270,6 @@ public function applyForJob(Request $request)
     $jobApplication->status = 'in review';
     $jobApplication->save();
 
-    // $job->user->notify(new JobStatusChanged($jobApplication));
-
     return response()->json(['message' => 'Job application submitted successfully']);
 }
 
@@ -342,30 +297,6 @@ public function applyForJob(Request $request)
 
         return response()->json(['job_application' => $jobApplication]);
     }
-
-    // public function updateJobStatus(Request $request, $jobId)
-    // {
-    //     $job = Job::findOrFail($jobId);
-
-    //     // Only allow the user who created the job to update the status
-    //     if ($job->user_id !== Auth::user()->id) {
-    //         return response()->json(['message' => 'You are not authorized to update the status of this job.'], 403);
-    //     }
-
-    //     $validatedData = $request->validate([
-    //         'status' => 'required|in:approve,reject',
-    //     ]);
-
-    //     $job->status = $validatedData['status'];
-    //     $job->save();
-
-    //     // Notify the seeker about the job status update
-    //     foreach ($job->jobApplications as $jobApplication) {
-    //         $jobApplication->seeker->notify(new JobStatusChanged($jobApplication));
-    //     }
-
-    //     return response()->json(['message' => 'Job status updated successfully']);
-    // }
 
     public function updateJobApplicationStatus(Request $request, $jobApplicationId)
     {

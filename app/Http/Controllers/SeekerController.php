@@ -447,24 +447,20 @@ public function applyForJob(Request $request)
     {
         $seeker = Auth::user();
     
-        // Delete related records manually
         if ($seeker->seekerProfile) {
             $seeker->seekerProfile->delete();
         }
+        
+        $seeker->skills()->detach();
+        
+        $seeker->interests()->detach();
     
-        // Delete related skills manually
-        $seeker->seekerSkills()->delete();
-    
-        // Delete related interests manually
-        $seeker->seekerInterests()->delete();
-    
-        // Delete the seeker's account
         $seeker->delete();
-    
-        // Logout the user after account deletion
+        
         Auth::guard('seeker')->logout();
     
         return response()->json(['message' => 'Account deleted successfully']);
     }
+
 
 }

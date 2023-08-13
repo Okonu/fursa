@@ -447,7 +447,7 @@ public function applyForJob(Request $request)
     {
         $seeker = Auth::user();
         
-        $seeker->profile()->delete();
+        $seeker->seekerProfile()->delete();
         $seeker->jobApplications()->delete();
         
         $seeker->delete();

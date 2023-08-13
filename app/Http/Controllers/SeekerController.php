@@ -452,13 +452,13 @@ public function applyForJob(Request $request)
         }
         
         if ($seeker->skills) {
-            $seeker->skills->each(function ($skill) {
+            $seeker->skills->each(function ($skills) {
                 $skill->delete();
             });
         }
     
         if ($seeker->interests) {
-            $seeker->interests->each(function ($interest) {
+            $seeker->interests->each(function ($interests) {
                 $interest->delete();
             });
         }

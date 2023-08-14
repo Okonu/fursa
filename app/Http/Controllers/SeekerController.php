@@ -443,52 +443,18 @@ public function applyForJob(Request $request)
         return response()->json($responseData);
     }
 
-    // public function deleteAccount(Request $request): JsonResponse
-    // {
-    //     $seeker = Auth::user();
-    
-    //     // Delete related records manually
-    //     if ($seeker->seekerProfile) {
-    //         $seeker->seekerProfile->delete();
-    //     }
-
-    //     if ($seeker->jobApplications) {
-    //         $seeker->jobApplications->each(function ($jobApplication) {
-    //             $jobApplication->delete();
-    //         });
-    //     }
-        
-    //     \DB::table('seeker_skills')->where('seeker_id', $seeker->id)->delete();
-    
-    //     \DB::table('seeker_interests')->where('seeker_id', $seeker->id)->delete();
-
-    //     \DB::table('seeker_locations')->where('seeker_id', $seeker->id)->delete();
-
-    //     \DB::table('seeker_profiles')->where('seeker_id', $seeker->id)->delete();
-    
-    //     $seeker->delete();
-        
-    //     Auth::guard('seeker')->logout();
-    
-    //     return response()->json(['message' => 'Account deleted successfully']);
-    // }
-
     public function deleteAccount(Request $request): JsonResponse
     {
         $seeker = Auth::user();
-    
-        // Delete job applications first
+
         JobApplication::where('seeker_id', $seeker->id)->delete();
     
-        // Delete seeker profile
         SeekerProfile::where('seeker_id', $seeker->id)->delete();
     
-        // Detach skills, interests, and locations
         \DB::table('seeker_skills')->where('seeker_id', $seeker->id)->delete();
         \DB::table('seeker_interests')->where('seeker_id', $seeker->id)->delete();
         \DB::table('seeker_locations')->where('seeker_id', $seeker->id)->delete();
     
-        // Finally, delete the seeker's account
         $seeker->delete();
     
         Auth::guard('seeker')->logout();

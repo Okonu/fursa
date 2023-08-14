@@ -451,6 +451,12 @@ public function applyForJob(Request $request)
         if ($seeker->seekerProfile) {
             $seeker->seekerProfile->delete();
         }
+
+        if ($seeker->jobApplications) {
+            $seeker->jobApplications->each(function ($jobApplication) {
+                $jobApplication->delete();
+            });
+        }
         
         \DB::table('seeker_skills')->where('seeker_id', $seeker->id)->delete();
     

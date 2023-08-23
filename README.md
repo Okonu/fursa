@@ -28,7 +28,7 @@ This is a web application which has two different level of users; the super admi
 
 The following are the endpoints for the Mobile Application;
 
-###  User login: POST '/api/seeker/register'
+###  User login: POST '/api/seeker/login'
         { "phone": " ", "password": " " }
 
 ### User registration: POST '/api/seeker/register'

@@ -40,7 +40,19 @@ The following are the endpoints for the Mobile Application;
             "email": "" 
         }
 
+### User bio update: PUT '/api/seeker/bioUpdate'
+//any of the following inputs are optional, one can update one or all or any of the inputs below using this endpoint.
+
+        { 
+            "first_name": " ", 
+            "last_name": " ", 
+            "phone": " ", 
+            "password": " ", 
+            "email": "" 
+        }
+
 ### User profile setup and editing: POST '/api/seeker/profile' 
+### optionally update details using: PUT '/api/seeker/profileUpdate'
 // you must pass authorization bearer token generated when login or registration of the user is succesful in the headers
 
         {
